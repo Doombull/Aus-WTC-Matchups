@@ -1,0 +1,339 @@
+
+.ui-widget-content .ui-red-icon {background-image: url(css/redmond/images/ui-icons_cd0a0a_256x240.png); }
+
+label, input { display:block; margin: 0.4em; }
+input.text { margin-bottom:12px; width:95%; padding: 0.4em; }
+textarea.large { height: 470px; width: 100%; border: 1px solid gray; }
+button.wide { display: block; width: 500px; margin: 15px auto 30px auto; }
+button.right { width: 200px; margin: 20px 0px 0px 20px; }
+button.back { position: absolute; width: 100px; top: 10px; left: 10px;}
+
+.header { text-align: center; font-weight: bold; font-size: 24pt; color: #235477; padding: 20px; }
+
+
+body
+{
+	width: 1014px;
+	height: 731px;
+	margin: 0px;
+	background-color: #555555;
+	padding: 5px;
+	padding-top: 10px;
+	font-size: 8pt;
+}
+
+.tabContainer
+{
+	width: 50px;
+	float: left;
+	display: block;
+	vertical-align: top;
+}
+.tab
+{
+	width: 50px;
+	height: 200px;
+}
+.tabContainer .tab img.selected
+{
+	display: none;
+}
+.tabContainer .active img.selected
+{
+	display: inline;
+}
+.tabContainer .active img.unselected
+{
+	display: none;
+}
+
+.mainContainer
+{
+	background-color: white;
+	width: 954px;
+	height: 100%;
+	margin-left: 49px;
+	border: 1px solid black;
+}
+.contentPanel
+{
+	height: 681px; 
+	margin: 20px;
+}
+
+#viewMatchupsViewPanel div.rightPanel
+{
+	float: right;
+	width: 350px;
+	height: 660px;
+}
+#viewMatchupsViewPanel div.leftPanel
+{
+	width: 575px;
+}
+
+
+.teamList 
+{
+    height: 380px;
+    width: 100%;
+    margin-top: 10px;
+    border: 1px solid gray;
+    overflow: auto;
+}
+.long 
+{
+    height: 540px;
+}
+.teamList .listItem
+{
+	position: relative;
+	height: 40px;
+	width: 100%;
+}
+.teamList .alternate
+{
+	border-top: 1px solid #DDDDDD;
+	border-bottom: 1px solid #DDDDDD;
+	background-color: #EFEFEF;
+}
+.teamList .listItem .listItemDelete
+{
+	position: absolute;
+	top: 50%;
+	margin-top: -8px;
+	right: 30px;
+}
+.teamList .listItem .listItemText
+{
+	line-height:40px;
+	padding-left: 20px;
+	font-size: 1.2em;
+	width: 70%
+}
+
+
+
+
+.editTeamDialog
+{
+	margin: 10px;
+}
+.editTeamDialog div
+{
+	position: relative;
+	margin: 0 auto;
+}
+.editTeamDialog div img
+{
+	height: 95px;
+	width: 95px;
+	margin: 10px;
+	border: 2px solid transparent;	
+}
+.editTeamDialog div img.selected
+{
+	border: 2px solid #357BAD;	
+}
+
+
+.editMatchupDialog
+{
+	margin: 10px;
+}
+.editMatchupDialog .vs
+{
+	position: relative;
+	margin: 0 auto;
+	text-align: center;
+	width: 400px;
+	font-size: 20pt;
+	line-height: 75px;
+}
+.editMatchupDialog .vs img
+{
+	height: 75px; 
+	width: 75px;
+}
+.editMatchupDialog .vs img#ourArmy
+{
+	float: left;
+}
+.editMatchupDialog .vs img#theirArmy
+{
+	float: right;
+}
+.editMatchupDialog div.label
+{
+	text-align: center;
+	margin: 10px;
+	margin-top 30px;
+}
+.editMatchupDialog table.quality
+{
+	position: relative;
+	margin: 10px auto;
+}
+.editMatchupDialog table.quality tbody tr td
+{
+	padding: 2px;
+	border: 2px solid transparent;	
+}
+.editMatchupDialog table.quality tbody tr td.selected
+{
+	border: 2px solid #357BAD;		
+}
+.editMatchupDialog table.quality tbody tr td div
+{
+	height: 50px;
+	width: 75px;
+}
+.editMatchupDialog table.quality tbody tr td.spacer
+{
+	width: 50px;
+}
+.editMatchupDialog table.scenarios
+{
+	position: relative;
+	margin: 10px auto;
+	width: 590px;
+}
+.editMatchupDialog table.scenarios tbody tr td.scenario
+{
+	border: 2px solid #BBBBBB;	
+	font-size: 1.1em;
+	height: 50px;
+	width: 190px;
+	line-height: 50px;
+	text-align: center;	
+}
+.editMatchupDialog table.scenarios tbody tr td.selected
+{
+	border: 2px solid #357BAD;		
+}
+.editMatchupDialog table.scenarios tbody tr td.spacer
+{
+	width: 10px;
+}
+.editMatchupDialog table.scenarios tbody tr td.verticalSpacer
+{
+	height: 10px;
+}
+
+
+.editScenarioDialog
+{
+	margin: 10px;
+}
+.editScenarioDialog div
+{
+	text-align: center;
+}
+.editScenarioDialog div img
+{
+	height: 90px;
+	width: 90px;
+	margin: 10px;
+	border: 2px solid transparent;	
+}
+.editScenarioDialog div img.selected
+{
+	border: 2px solid #357BAD;	
+}
+
+
+
+
+#scenarioChoiceText 
+{ 
+	margin: 10px auto 10px auto;
+	width: 450px; 
+	font-size: 1.3em;
+	border: 1px solid #BBBBBB;
+}
+#scenarioChoiceText tr td img
+{ 
+	height: 40px;
+}
+.ourScenarioChoice
+{
+	text-align: left;
+	color: ForestGreen; 
+	line-height: 30px; 
+}
+.theirScenarioChoice
+{
+	text-align: right;
+	color: DarkRed; 
+	line-height: 30px; 
+}
+
+
+
+
+
+
+
+#editMatchupsTable { margin: 15px auto 30px auto; height: 480px; width: 600px; }
+
+#editMatchupsTable .armyCell { border: none; background-color: white; width: 100px; height: 80px; text-align: center; float: left;}
+#editMatchupsTable .matchupIcon { border: 1px solid transparent; width: 75px; height: 75px; }
+
+#editMatchupsTable .matchup { width: 90px; height:70px; margin: 4px;  border: 1px solid gray; background-color: white; float: left;}
+
+#editMatchupsTable .subMatchupContainer { width: 92px; height:72px; margin: 4px;  border: 0px; background-color: white; float: left; position: relative; }
+#editMatchupsTable .subMatchup { width: 75px; height: 60px; position: absolute; left: 0px; top: 0px; z-index: 10 }
+#editMatchupsTable .scenarioSubMatchup { width: 75px; height: 60px; position: absolute; left: 15px; top: 10px; }
+
+
+
+#viewMatchupsTable { margin: 30px 0px 0px 15px; height: 498px; width: 540px; }
+
+#viewMatchupsTable .armyCell { border: none; background-color: white; width: 90px; height: 83px; text-align: center; float: left;}
+#viewMatchupsTable .matchupIcon { border: 1px solid white; width: 72px; height: 77px; }
+
+#viewMatchupsTable .matchup { width: 80px; height:73px; margin: 4px;  border: 1px solid gray; background-color: white; float: left;}
+
+#viewMatchupsTable .subMatchupContainer { width: 82px; height:75px; margin: 4px;  border: 0px; background-color: white; float: left; position: relative; }
+#viewMatchupsTable .subMatchup { width: 73px; height: 68px; position: absolute; left: 0px; top: 0px; z-index: 10 }
+#viewMatchupsTable .scenarioSubMatchup { width: 73px; height: 68px; position: absolute; left: 7px; top: 5px; }
+
+#viewMatchupsTable.recieving div div div.scenarioSubMatchup  { z-index: 20; }
+
+
+.good { border: 1px solid ForestGreen !important; background-color: LimeGreen !important; }
+.average { border: 1px solid Goldenrod !important; background-color: Gold !important; }
+.bad { border: 1px solid DarkRed !important; background-color: Red !important; }
+
+.usedByUs { border: 1px solid #DDDDDD !important; background-color: #DDDDDD !important; }
+.usedByThem { border: 1px solid #DDDDDD !important; background-color: #DDDDDD !important; }
+
+.subMatchupUsedByUs { background-color: #DDDDDD !important; }
+.subMatchupUsedByThem { background-color: #DDDDDD !important; }
+
+.subMatchupUsedByUs .subMatchup, .subMatchupUsedByUs .scenarioSubMatchup { display: none; }
+.subMatchupUsedByThem .subMatchup, .subMatchupUsedByThem .scenarioSubMatchup { display: none; }
+
+.leadout { border: 1px solid #357BAD !important; }
+
+
+#viewScenarioTable { width: 346px; }
+#viewScenarioTable tbody tr td { border-bottom: 1px #CCC solid; text-align: center; font-size: 12pt; height: 58px; }
+#viewScenarioTable tbody tr td.inactive { color: #CCC; }
+#viewScenarioTable tbody tr td.inactive img { display: none; }
+
+#viewScenarioTable thead tr td { border-bottom: 1px #CCC solid; text-align: center; font-size: 10pt; color: #CCC; width: 119px; }
+#viewScenarioTable thead tr td.qualityHeader { width: 111px; }
+
+
+#viewScenarioTable .scenarioIcon { width: 32px; height: 32px; margin: 0px; }
+
+
+#editScenarioTable { width: 800px; margin: 0px auto 0px auto; }
+#editScenarioTable tbody tr td { border-bottom: 1px #CCC solid; text-align: center; font-size: 12pt; height: 64px; }
+
+#editScenarioTable thead tr td { border-bottom: 1px #CCC solid; text-align: center; font-size: 10pt; color: #CCC;}
+#editScenarioTable thead tr td.qualityHeader { width: 275px; }
+
+
+#editScenarioTable .scenarioIcon { width: 53px; height: 53px; margin: 3px 1px 0px 1px; border: none; }

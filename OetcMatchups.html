@@ -1,0 +1,506 @@
+<!doctype html>
+<html manifest="cache.manifest">
+	<meta charset="utf-8">
+	<title>OETC Matchups</title>
+
+	<meta name="viewport" content="width=1024,user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<link rel="apple-touch-icon" href="images/apple-touch-icon.png"/>
+
+	<link rel="stylesheet" href="css/redmond/jquery-ui-1.8.23.custom.css">
+	<link rel="stylesheet" href="OetcMatchups.css">
+
+	<script type="text/javascript" src="js/jquery-1.7.2.min.js"></script>
+	<script type="text/javascript" src="js/jquery-ui-1.8.23.custom.min.js"></script>
+
+	<script type="text/javascript" src="DataModel.js"></script>
+	<script type="text/javascript" src="GridFunctions.js"></script>
+	<script type="text/javascript" src="General.js"></script>
+</head>
+<body>
+
+
+	<div class="tabContainer">
+		<div id="tab0" class="tab">
+			<img class="unselected" src="images/Tab1.png"/>
+			<img class="selected"   src="images/Tab1Selected.png"/>
+		</div>
+		<div id="tab1" class="tab">
+			<img class="unselected" src="images/Tab2.png"/>
+			<img class="selected"   src="images/Tab2Selected.png"/>
+		</div>
+		<div id="tab2" class="tab">
+			<img class="unselected" src="images/Tab3.png"/>
+			<img class="selected"   src="images/Tab3Selected.png"/>
+		</div>
+	</div>
+
+	<div class="mainContainer ui-corner-right">
+
+		<!-- First panel -->
+		<div id="content0" class="contentPanel">
+
+			<div class="accordion">
+				<h3><a href="#">Teams</a></h3>
+				<div>
+
+					<button onclick="EditTeam()" class="wide">Edit my team</button>
+					<button onclick="AddTeam()" class="wide">Add new opponant</button>
+
+					Existing Teams:
+					<div class="teamList"></div>
+
+				</div>
+				<h3><a href="#">Import data</a></h3>
+				<div>
+					<textarea id="importData" class="large"></textarea>
+
+					<div style="float: right">
+						<button class="right" onclick="ImportData()">Import All</button>
+						<button class="right" onclick="ImportData(true)">Import Structure Only</button>
+					</div>
+
+				</div>
+				<h3><a href="#">Export Data</a></h3>
+				<div>
+					<button onclick="ExportData()" class="wide">Refresh</button>
+					<textarea id="exportData" class="large"></textarea>
+				</div>
+			</div>
+		</div>
+
+		<!-- Second panel -->
+		<div id="content1" class="contentPanel">
+
+			<div id="editMatchupsSelectPanel" class="accordion">
+				<h3><a href="#">Edit Matchups</a></h3>
+				<div>
+
+					Select an opponent:
+					<div class="teamList long"></div>
+
+				</div>
+				<h3><a href="#">Edit Scenarios</a></h3>
+				<div>
+
+					<table id="editScenarioTable" cellspacing="0px">
+						<thead>
+							<tr>
+								<td class="qualityHeader">Good</td>
+								<td></td>
+								<td class="qualityHeader">Bad</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr onclick="EditScenario(0)">
+								<td></td>
+								<td id="CloseQuarters">Close Quarters</td>
+								<td></td>
+							</tr>
+							<tr onclick="EditScenario(1)">
+								<td></td>
+								<td id="Gauntlet">Gauntlet</td>
+								<td></td>
+							</tr>
+							<tr onclick="EditScenario(2)">
+								<td></td>
+								<td id="Guidons">Guidons</td>
+								<td></td>
+							</tr>
+							<tr onclick="EditScenario(3)">
+								<td></td>
+								<td id="Destruction">Destruction</td>
+								<td></td>
+							</tr>
+							<tr onclick="EditScenario(4)">
+								<td></td>
+								<td id="Incursion">Incursion</td>
+								<td></td>
+							</tr>
+							<tr onclick="EditScenario(5)">
+								<td></td>
+								<td id="ProcessOfElimination">Process of Elimination</td>
+								<td></td>
+							</tr>
+							<tr onclick="EditScenario(6)">
+								<td></td>
+								<td id="Demolition">Demolition</td>
+								<td></td>
+							</tr>
+							<tr onclick="EditScenario(7)">
+								<td></td>
+								<td id="Incoming">Incoming</td>
+								<td></td>
+							</tr>
+							<tr onclick="EditScenario(8)">
+								<td></td>
+								<td id="CommandAndControl">Command & Control</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+			<div id="editMatchupsViewPanel" class="ui-widget" style="position: relative">
+
+				<button onclick="EditMatchupsBack()" class="back"><< Back</button>
+				<div class="header"></div>
+
+
+				<div id="editMatchupsTable" class="matchupTable">
+					<div class="matchupTableRow">
+						<div class="armyCell"></div>
+						<div id="OpposingPlayer0" class="armyCell">&nbsp;</div>
+						<div id="OpposingPlayer1" class="armyCell">&nbsp;</div>
+						<div id="OpposingPlayer2" class="armyCell">&nbsp;</div>
+						<div id="OpposingPlayer3" class="armyCell">&nbsp;</div>
+						<div id="OpposingPlayer4" class="armyCell">&nbsp;</div>
+					</div>
+					<div class="matchupTableRow">
+						<div id="Player0" class="armyCell" onclick="SelectLeadoutArmy(0)"></div>
+						<div id="Matchup00" class="matchup" onclick="EditMatchup(0,0)">&nbsp;</div>
+						<div id="Matchup10" class="matchup" onclick="EditMatchup(1,0)">&nbsp;</div>
+						<div id="Matchup20" class="matchup" onclick="EditMatchup(2,0)">&nbsp;</div>
+						<div id="Matchup30" class="matchup" onclick="EditMatchup(3,0)">&nbsp;</div>
+						<div id="Matchup40" class="matchup" onclick="EditMatchup(4,0)">&nbsp;</div>
+					</div>
+					<div class="matchupTableRow">
+						<div id="Player1" class="armyCell" onclick="SelectLeadoutArmy(1)"></div>
+						<div id="Matchup01" class="matchup" onclick="EditMatchup(0,1)">&nbsp;</div>
+						<div id="Matchup11" class="matchup" onclick="EditMatchup(1,1)">&nbsp;</div>
+						<div id="Matchup21" class="matchup" onclick="EditMatchup(2,1)">&nbsp;</div>
+						<div id="Matchup31" class="matchup" onclick="EditMatchup(3,1)">&nbsp;</div>
+						<div id="Matchup41" class="matchup" onclick="EditMatchup(4,1)">&nbsp;</div>
+					</div>
+					<div class="matchupTableRow">
+						<div id="Player2" class="armyCell" onclick="SelectLeadoutArmy(2)"></div>
+						<div id="Matchup02" class="matchup" onclick="EditMatchup(0,2)">&nbsp;</div>
+						<div id="Matchup12" class="matchup" onclick="EditMatchup(1,2)">&nbsp;</div>
+						<div id="Matchup22" class="matchup" onclick="EditMatchup(2,2)">&nbsp;</div>
+						<div id="Matchup32" class="matchup" onclick="EditMatchup(3,2)">&nbsp;</div>
+						<div id="Matchup42" class="matchup" onclick="EditMatchup(4,2)">&nbsp;</div>
+					</div>
+					<div class="matchupTableRow">
+						<div id="Player3" class="armyCell" onclick="SelectLeadoutArmy(3)"></div>
+						<div id="Matchup03" class="matchup" onclick="EditMatchup(0,3)">&nbsp;</div>
+						<div id="Matchup13" class="matchup" onclick="EditMatchup(1,3)">&nbsp;</div>
+						<div id="Matchup23" class="matchup" onclick="EditMatchup(2,3)">&nbsp;</div>
+						<div id="Matchup33" class="matchup" onclick="EditMatchup(3,3)">&nbsp;</div>
+						<div id="Matchup43" class="matchup" onclick="EditMatchup(4,3)">&nbsp;</div>
+					</div>
+					<div class="matchupTableRow">
+						<div id="Player4" class="armyCell" onclick="SelectLeadoutArmy(4)"></div>
+						<div id="Matchup04" class="matchup" onclick="EditMatchup(0,4)">&nbsp;</div>
+						<div id="Matchup14" class="matchup" onclick="EditMatchup(1,4)">&nbsp;</div>
+						<div id="Matchup24" class="matchup" onclick="EditMatchup(2,4)">&nbsp;</div>
+						<div id="Matchup34" class="matchup" onclick="EditMatchup(3,4)">&nbsp;</div>
+						<div id="Matchup44" class="matchup" onclick="EditMatchup(4,4)">&nbsp;</div>
+					</div>
+				</div>
+
+				<div style="text-align: center;">Click on a matchup to edit it. Click on one of our armies to set it as our lead out army against this opponent.</div>
+			</div>
+		</div>
+
+		<!-- Third panel -->
+		<div id="content2" class="contentPanel">
+			<div id="viewMatchupsSelectPanel" class="accordion">
+				<h3><a href="#">View Matchups</a></h3>
+				<div>
+
+					Select an opponent:
+					<div class="teamList long"></div>
+
+				</div>
+			</div>
+			<div id="viewMatchupsViewPanel" class="ui-widget" style="position: relative">
+
+				<button onclick="ViewMatchupsBack()" class="back"><< Back</button>
+				<div class="header"></div>
+
+
+				<div class="rightPanel">
+					<table id="viewScenarioTable" cellspacing="0px">
+						<thead>
+							<tr>
+								<td class="qualityHeader">Good</td>
+								<td></td>
+								<td class="qualityHeader">Bad</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr onclick="ToggleScenarioChosen(0)">
+								<td></td>
+								<td id="CloseQuarters">Close Quarters</td>
+								<td></td>
+							</tr>
+							<tr onclick="ToggleScenarioChosen(1)">
+								<td></td>
+								<td id="Gauntlet">Gauntlet</td>
+								<td></td>
+							</tr>
+							<tr onclick="ToggleScenarioChosen(2)">
+								<td></td>
+								<td id="Guidons">Guidons</td>
+								<td></td>
+							</tr>
+							<tr onclick="ToggleScenarioChosen(3)">
+								<td></td>
+								<td id="Destruction">Destruction</td>
+								<td></td>
+							</tr>
+							<tr onclick="ToggleScenarioChosen(4)">
+								<td></td>
+								<td id="Incursion">Incursion</td>
+								<td></td>
+							</tr>
+							<tr onclick="ToggleScenarioChosen(5)">
+								<td></td>
+								<td id="ProcessOfElimination">Process of Elimination</td>
+								<td></td>
+							</tr>
+							<tr onclick="ToggleScenarioChosen(6)">
+								<td></td>
+								<td id="Demolition">Demolition</td>
+								<td></td>
+							</tr>
+							<tr onclick="ToggleScenarioChosen(7)">
+								<td></td>
+								<td id="Incoming">Incoming</td>
+								<td></td>
+							</tr>
+							<tr onclick="ToggleScenarioChosen(8)">
+								<td></td>
+								<td id="CommandAndControl">Command & Control</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="leftPanel">
+					<table id="scenarioChoiceText">
+					<tr>
+						<td>
+							<img src="images/flagGreen.jpg" style="float: left;" onclick="ToggleScenarioChoice(true)"/>
+						</td>
+						<td />
+						<td>
+							<img src="images/flagRed.jpg" style="float: right;" onclick="ToggleScenarioChoice(false)"/>
+						</td>
+					</tr>
+					</table>
+
+					<div id="viewMatchupsTable" class="matchupTable">
+						<div class="matchupTableRow">
+							<div class="armyCell"></div>
+							<div id="OpposingPlayer0" class="armyCell" onclick="ToggleMatchupVisibility(true, 0)">&nbsp;</div>
+							<div id="OpposingPlayer1" class="armyCell" onclick="ToggleMatchupVisibility(true, 1)">&nbsp;</div>
+							<div id="OpposingPlayer2" class="armyCell" onclick="ToggleMatchupVisibility(true, 2)">&nbsp;</div>
+							<div id="OpposingPlayer3" class="armyCell" onclick="ToggleMatchupVisibility(true, 3)">&nbsp;</div>
+							<div id="OpposingPlayer4" class="armyCell" onclick="ToggleMatchupVisibility(true, 4)">&nbsp;</div>
+						</div>
+						<div class="matchupTableRow">
+							<div id="Player0" class="armyCell" onclick="ToggleMatchupVisibility(false, 0)"></div>
+							<div id="Matchup00" class="matchup">&nbsp;</div>
+							<div id="Matchup10" class="matchup">&nbsp;</div>
+							<div id="Matchup20" class="matchup">&nbsp;</div>
+							<div id="Matchup30" class="matchup">&nbsp;</div>
+							<div id="Matchup40" class="matchup">&nbsp;</div>
+						</div>
+						<div class="matchupTableRow">
+							<div id="Player1" class="armyCell" onclick="ToggleMatchupVisibility(false, 1)"></div>
+							<div id="Matchup01" class="matchup">&nbsp;</div>
+							<div id="Matchup11" class="matchup">&nbsp;</div>
+							<div id="Matchup21" class="matchup">&nbsp;</div>
+							<div id="Matchup31" class="matchup">&nbsp;</div>
+							<div id="Matchup41" class="matchup">&nbsp;</div>
+						</div>
+						<div class="matchupTableRow">
+							<div id="Player2" class="armyCell" onclick="ToggleMatchupVisibility(false, 2)"></div>
+							<div id="Matchup02" class="matchup">&nbsp;</div>
+							<div id="Matchup12" class="matchup">&nbsp;</div>
+							<div id="Matchup22" class="matchup">&nbsp;</div>
+							<div id="Matchup32" class="matchup">&nbsp;</div>
+							<div id="Matchup42" class="matchup">&nbsp;</div>
+						</div>
+						<div class="matchupTableRow">
+							<div id="Player3" class="armyCell" onclick="ToggleMatchupVisibility(false, 3)"></div>
+							<div id="Matchup03" class="matchup">&nbsp;</div>
+							<div id="Matchup13" class="matchup">&nbsp;</div>
+							<div id="Matchup23" class="matchup">&nbsp;</div>
+							<div id="Matchup33" class="matchup">&nbsp;</div>
+							<div id="Matchup43" class="matchup">&nbsp;</div>
+						</div>
+						<div class="matchupTableRow">
+							<div id="Player4" class="armyCell" onclick="ToggleMatchupVisibility(false, 4)"></div>
+							<div id="Matchup04" class="matchup">&nbsp;</div>
+							<div id="Matchup14" class="matchup">&nbsp;</div>
+							<div id="Matchup24" class="matchup">&nbsp;</div>
+							<div id="Matchup34" class="matchup">&nbsp;</div>
+							<div id="Matchup44" class="matchup">&nbsp;</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- Templates -->
+	<textarea id="editTeamDialogContainer" style="display: none">
+		<div class="editTeamDialog" title="Edit Team">
+			<label for="name">Enter a name for this team:</label>
+			<input type="text" name="name" id="name" class="text ui-widget-content ui-corner-all" />
+
+			<br/>
+			<label>Please select five armies</label>
+			<div>
+				<img id="cryx" src="images/cryx.png"/>
+				<img id="cygnar" src="images/cygnar.png"/>
+				<img id="khador" src="images/khador.png"/>
+				<img id="menoth" src="images/menoth.png"/>
+				<img id="retribution" src="images/retribution.png"/>
+				<img id="mercenaries" src="images/mercenaries.png"/>
+			</div>
+			<div>
+				<img id="circle" src="images/circle.png"/>
+				<img id="legion" src="images/legion.png"/>
+				<img id="trolls" src="images/trolls.png"/>
+				<img id="skorne" src="images/skorne.png"/>
+				<img id="minions" src="images/minions.png"/>
+			</div>
+		</div>
+	</textarea>
+
+	<textarea id="editMatchupDialogContainer" style="display: none">
+		<div class="editMatchupDialog" title="Edit Matchup">
+			<div class="vs">
+				<img id="ourArmy"/>
+				VS
+				<img id="theirArmy"/>
+			</div>
+
+			<div id="qualityText" class="label">Select the quality of this matchup</div>
+
+			<table id="quality" class="quality">
+				<tbody>
+					<tr>
+						<td>
+							<div class="good">&nbsp;</div>
+						</td>
+						<td class="spacer"/>
+						<td>
+							<div class="average">&nbsp;</div>
+						</td>
+						<td class="spacer"/>
+						<td>
+							<div class="bad">&nbsp;</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<hr/>
+			<br/>
+
+			<div id="scenarioQualityText" class="label">If the opposition picks the matchup, the quality is:</div>
+
+			<table id="scenarioQuality" class="quality">
+				<tbody>
+					<tr>
+						<td>
+							<div class="good">&nbsp;</div>
+						</td>
+						<td class="spacer"/>
+						<td>
+							<div class="average">&nbsp;</div>
+						</td>
+						<td class="spacer"/>
+						<td>
+							<div class="bad">&nbsp;</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div id="scenarioText" class="label">if any of the following scenarios are still available</div>
+
+			<table id="scenarios" class="scenarios">
+				<tbody>
+					<tr>
+						<td id="CloseQuarters" class="scenario">
+							Close Quarters
+						</td>
+						<td class="spacer"/>
+						<td id="Gauntlet" class="scenario">
+							Gauntlet
+						</td>
+						<td class="spacer"/>
+						<td id="Guidons" class="scenario">
+							Guidons
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5" class="verticalSpacer"/>
+					</tr>
+					<tr>
+						<td id="Destruction" class="scenario">
+							Destruction
+						</td>
+						<td class="spacer"/>
+						<td id="Incursion" class="scenario">
+							Incursion
+						</td>
+						<td class="spacer"/>
+						<td id="ProcessOfElimination" class="scenario">
+							Process of Elimination
+						</td>
+					</tr>
+					<tr>
+						<td colspan="5" class="verticalSpacer"/>
+					</tr>
+					<tr>
+						<td id="Demolition" class="scenario">
+							Demolition
+						</td>
+						<td class="spacer"/>
+						<td id="Incoming" class="scenario">
+							Incoming
+						</td>
+						<td class="spacer"/>
+						<td id="CommandAndControl" class="scenario">
+							Command and Control
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</textarea>
+
+	<textarea id="editScenarioDialogContainer" style="display: none">
+		<div class="editScenarioDialog" title="Edit Scenario">
+			<div class="header">Incursion</div>
+
+			<label>Armies that this scenario is good for:</label>
+			<div class="armyRow">
+			</div>
+
+			<br/>
+			<label>Armies that this scenario is bad for:</label>
+			<div class="armyRow">
+			</div>
+		</div>
+	</textarea>
+
+	<textarea id="teamListItemContainer" style="display: none">
+		<div class="listItem">
+			<div class="listItemDelete ui-icon ui-red-icon ui-icon-closethick">&nbsp;</div>
+			<div class="listItemText"></div>
+		</div>
+	</textarea>
+
+</body>
+</html>
