@@ -1,11 +1,11 @@
 CACHE MANIFEST
-# 2012-09-09 v1.1.2
+# 2014-09-08 v1.0
 
 DataModel.js
 General.js
 GridFunctions.js
-OetcMatchups.css
-OetcMatchups.html
+WtcMatchups.css
+WtcMatchups.html
 css/redmond/jquery-ui-1.8.23.custom.css
 css/redmond/images/ui-bg_flat_0_aaaaaa_40x100.png
 css/redmond/images/ui-bg_flat_55_fbec88_40x100.png
