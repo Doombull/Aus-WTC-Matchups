@@ -28,10 +28,6 @@ function DrawMatchupGrid(isEditGrid, opposingTeamId)
 function RefreshMatchupGrid(isEditGrid, opposingTeamId)
 {
 	var data = localStorage.getObject ("Team");
-	
-	var gridId = "#viewMatchupsTable";
-	if (isEditGrid)
-		gridId = "#editMatchupsTable";
 		
 	//Loop through all the matchups and draw the grid
 	$.each(data.Opponents[opposingTeamId].Armies, function(key, value) { 
