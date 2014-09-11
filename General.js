@@ -7,8 +7,8 @@ $(document).ready(function() {
 	$("button").button();
 	
 	RefreshPage();
-	RefreshScenarioGrid(true, null);
-	ToggleScenarioChoice(true);
+	//RefreshScenarioGrid(true, null);
+	//ToggleScenarioChoice(true);
 });
 
 function RefreshPage()
@@ -142,8 +142,18 @@ function ShowEditTeamDialog(editTeamOptions) {
 	//Get the initial structure of the dialog
 	var $dialogContents = $($("#editTeamDialogContainer").val());
 	
-	$dialogContents.find("img").click(function (event) {
-			$(this).toggleClass("selected");
+	$dialogContents.find(".armyImg").click(function (event) {
+			$selectedArmyDiv = $dialogContents.find("input[type=hidden]").filter(function() { return $(this).val() == ""; }).eq(0).parent();
+			$selectedArmyDiv.children("[name='selectedArmy']").val($(this).attr("id"));
+			$selectedArmyDiv.children(".selectedArmyImg").attr("src", "images/" + $(this).attr("id") + ".png");
+		});
+	
+	$dialogContents.find(".selectedArmyImg").click(function (event) {
+			$selectedArmyDiv = $(this).parent();
+			
+			$selectedArmyDiv.children("[name='selectedArmy']").val("");
+			$selectedArmyDiv.children("[name='selectedArmyDesc']").val("");
+			$selectedArmyDiv.children(".selectedArmyImg").attr("src", "images/question.png");
 		});
 	
 	//Set the controls for existing values
@@ -154,7 +164,12 @@ function ShowEditTeamDialog(editTeamOptions) {
 			$dialogContents.find("#name").val(data.Name);
 
 			$.each(data.Armies, function(key, value) { 
-				$dialogContents.find("div img#" + value).addClass("selected");
+				$selectedArmyDiv = $dialogContents.find(".selectedArmy").eq(key);
+				
+				$selectedArmyDiv.children("[name='selectedArmy']").val(value);
+				$selectedArmyDiv.children(".selectedArmyImg").attr("src", "images/" + value + ".png");
+				
+				$selectedArmyDiv.children("[name='selectedArmyDesc']").hide();
 			});					
 		}
 		else
@@ -162,7 +177,12 @@ function ShowEditTeamDialog(editTeamOptions) {
 			$dialogContents.find("#name").val(data.Opponents[editTeamOptions.index].Name);
 
 			$.each(data.Opponents[editTeamOptions.index].Armies, function(key, value) { 
-				$dialogContents.find("div img#" + value.Name).addClass("selected");
+				$selectedArmyDiv = $dialogContents.find(".selectedArmy").eq(key);
+				
+				$selectedArmyDiv.children("[name='selectedArmy']").val(value.Name);
+				$selectedArmyDiv.children(".selectedArmyImg").attr("src", "images/" + value.Name + ".png");
+				
+				$selectedArmyDiv.children("[name='selectedArmyDesc']").val(value.Description);	
 			});					
 		}
 	}
@@ -172,7 +192,7 @@ function ShowEditTeamDialog(editTeamOptions) {
 		draggable: false,
 		resizable: false,
 		modal: true,
-		height: 460,
+		height: 660,
 		width: 785,
 		buttons: {
 			"Save team": function() {
@@ -200,10 +220,10 @@ function ShowEditTeamDialog(editTeamOptions) {
 				}
 				
 				//Check the number of armies selected
-				if ($dialogContents.find("div img.selected").length != 5)
+				if ($dialogContents.find("input[type=hidden]").filter(function() { return $(this).val() == ""; }).length > 0)
 				{
 					bValid = false;
-					$(this).find("label:last").text("Please select exactly five armies").addClass("ui-state-error");
+					$(this).find("label:last").text("Please select five armies").addClass("ui-state-error");
 				}
 				
 				//Save this army
@@ -215,8 +235,8 @@ function ShowEditTeamDialog(editTeamOptions) {
 						data.Name = name.val();
 						data.Armies = [];
 						
-						$.each($(this).find("div img.selected"), function(key, value) { 
-							data.Armies[key] = value.id;
+						$.each($(this).find("input[type=hidden]"), function(key, value) { 
+							data.Armies[key] = value.value;
 						});						
 					}
 					else
@@ -230,8 +250,12 @@ function ShowEditTeamDialog(editTeamOptions) {
 						//Create the new entry
 						var opponant = new Opponant(name.val());
 						
-						$.each($(this).find("div img.selected"), function(key, value) { 
-							opponant.Armies[key] = new Army(value.id);
+						$.each($(this).find(".selectedArmy"), function(key, value) {
+							
+							var name = $(value).children("input[name='selectedArmy']").val();
+							var description = $(value).children("input[name='selectedArmyDesc']").val();
+							
+							opponant.Armies[key] = new Army(name, description);
 						});					
 						
 						//Add it to the data object
@@ -297,6 +321,7 @@ function ImportData(structureOnly) {
 	{
 		data.Name = "";
 		data.Armies = [];
+		data.Scenarios = [];
 		
 		$.each(data.Opponents, function(key, value) { 
 			
@@ -481,6 +506,52 @@ function SelectLeadoutArmy(index)
 <!-- ******************************** -->
 <!--    Edit Scenarios                -->
 <!-- ******************************** -->
+$(document).ready(function() {
+
+	//Set up the click function
+	$("#editScenarioTable div").click(function (event) {
+			$(this).toggleClass("selected");
+		});
+	
+	//Select the appropriate scenarios on load
+	var data = localStorage.getObject("Team");
+		
+	$.each(data.Scenarios, function(key, value) {
+		$("#editScenarioTable div:contains('" + value + "')").addClass("selected");
+	});			
+});
+
+function SaveScenarios() {
+	
+	//Load in the saved data
+	var data = localStorage.getObject("Team");
+	
+	//Check for the right number of scenarios
+	var selectedScenarios = $("#editScenarioTable div.selected");
+	
+	if (selectedScenarios.length != 6) {
+		
+		$("#editScenarioLabel").addClass("ui-state-error");
+		return;		
+	}
+	
+	$("#editScenarioLabel").removeClass("ui-state-error");
+	
+	//Save the scenarios
+	$.each(selectedScenarios, function(key, value) {
+		data.Scenarios[key] = value.innerHTML;
+	});		
+	
+	localStorage.setObject('Team', data);
+	
+	//Alert the user
+	alert("Scenarios saved sucessfully");
+}
+
+
+
+
+
 function EditScenario(index) {
 	
 	//Load in the saved data

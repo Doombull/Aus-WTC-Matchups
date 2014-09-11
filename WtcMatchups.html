@@ -83,63 +83,39 @@
 				</div>
 				<h3><a href="#">Edit Scenarios</a></h3>
 				<div>
-
+					<br/>
+					<label id="editScenarioLabel">Please select six scenarios</label>
 					<table id="editScenarioTable" cellspacing="0px">
-						<thead>
-							<tr>
-								<td class="qualityHeader">Good</td>
-								<td></td>
-								<td class="qualityHeader">Bad</td>
-							</tr>
-						</thead>
 						<tbody>
-							<tr onclick="EditScenario(0)">
-								<td></td>
-								<td id="CloseQuarters">Close Quarters</td>
-								<td></td>
+							<tr>
+								<td><div>Balance of Power</div></td>
+								<td><div>Into the Breach</div></td>
 							</tr>
-							<tr onclick="EditScenario(1)">
-								<td></td>
-								<td id="Gauntlet">Gauntlet</td>
-								<td></td>
+							<tr>
+								<td><div>Close Quarters</div></td>
+								<td><div>Outflank</div></td>
 							</tr>
-							<tr onclick="EditScenario(2)">
-								<td></td>
-								<td id="Guidons">Guidons</td>
-								<td></td>
+							<tr>
+								<td><div>Destruction</div></td>
+								<td><div>Process of Elimination</div></td>
 							</tr>
-							<tr onclick="EditScenario(3)">
-								<td></td>
-								<td id="Destruction">Destruction</td>
-								<td></td>
+							<tr>
+								<td><div>Fire Support</div></td>
+								<td><div>Rally Point</div></td>
 							</tr>
-							<tr onclick="EditScenario(4)">
-								<td></td>
-								<td id="Incursion">Incursion</td>
-								<td></td>
+							<tr>
+								<td><div>Incoming</div></td>
+								<td><div>Supply and Demand</div></td>
 							</tr>
-							<tr onclick="EditScenario(5)">
-								<td></td>
-								<td id="ProcessOfElimination">Process of Elimination</td>
-								<td></td>
-							</tr>
-							<tr onclick="EditScenario(6)">
-								<td></td>
-								<td id="Demolition">Demolition</td>
-								<td></td>
-							</tr>
-							<tr onclick="EditScenario(7)">
-								<td></td>
-								<td id="Incoming">Incoming</td>
-								<td></td>
-							</tr>
-							<tr onclick="EditScenario(8)">
-								<td></td>
-								<td id="CommandAndControl">Command & Control</td>
-								<td></td>
+							<tr>
+								<td><div>Incursion</div></td>
+								<td><div>Two Fronts</div></td>
 							</tr>
 						</tbody>
 					</table>
+
+					<br/>
+					<button onclick="SaveScenarios()" class="save">Save</button>
 
 				</div>
 			</div>
@@ -358,20 +334,55 @@
 			<br/>
 			<label>Please select five armies</label>
 			<div>
-				<img id="cryx" src="images/cryx.png"/>
-				<img id="cygnar" src="images/cygnar.png"/>
-				<img id="khador" src="images/khador.png"/>
-				<img id="menoth" src="images/menoth.png"/>
-				<img id="retribution" src="images/retribution.png"/>
-				<img id="mercenaries" src="images/mercenaries.png"/>
+				<img id="cryx" src="images/cryx.png" class="armyImg"/>
+				<img id="cygnar" src="images/cygnar.png" class="armyImg"/>
+				<img id="khador" src="images/khador.png" class="armyImg"/>
+				<img id="menoth" src="images/menoth.png" class="armyImg"/>
+				<img id="retribution" src="images/retribution.png" class="armyImg"/>
+				<img id="mercenaries" src="images/mercenaries.png" class="armyImg"/>
 			</div>
 			<div>
-				<img id="circle" src="images/circle.png"/>
-				<img id="legion" src="images/legion.png"/>
-				<img id="trolls" src="images/trolls.png"/>
-				<img id="skorne" src="images/skorne.png"/>
-				<img id="convergence" src="images/convergence.png"/>
-				<img id="minions" src="images/minions.png"/>
+				<img id="circle" src="images/circle.png" class="armyImg"/>
+				<img id="legion" src="images/legion.png" class="armyImg"/>
+				<img id="trolls" src="images/trolls.png" class="armyImg"/>
+				<img id="skorne" src="images/skorne.png" class="armyImg"/>
+				<img id="convergence" src="images/convergence.png" class="armyImg"/>
+				<img id="minions" src="images/minions.png" class="armyImg"/>
+			</div>
+
+			<br/>
+			<br/>
+			<label>Selected Armies</label>
+
+			<div class="selectedArmy">
+				<img src="images/question.png" class="selectedArmyImg"/>
+				<br/>
+				<input type="text" name="selectedArmyDesc" id="selectedArmyDesc0" class="text ui-widget-content ui-corner-all" />
+				<input type="hidden" name="selectedArmy" id="selectedArmy0"/>
+			</div>
+			<div class="selectedArmy">
+				<img src="images/question.png" class="selectedArmyImg"/>
+				<br/>
+				<input type="text" name="selectedArmyDesc" id="selectedArmyDesc1" class="text ui-widget-content ui-corner-all" />
+				<input type="hidden" name="selectedArmy" id="selectedArmy1"/>
+			</div>
+			<div class="selectedArmy">
+				<img src="images/question.png" class="selectedArmyImg"/>
+				<br/>
+				<input type="text" name="selectedArmyDesc" id="selectedArmyDesc2" class="text ui-widget-content ui-corner-all" />
+				<input type="hidden" name="selectedArmy" id="selectedArmy2"/>
+			</div>
+			<div class="selectedArmy">
+				<img src="images/question.png" class="selectedArmyImg"/>
+				<br/>
+				<input type="text" name="selectedArmyDesc" id="selectedArmyDesc3" class="text ui-widget-content ui-corner-all" />
+				<input type="hidden" name="selectedArmy" id="selectedArmy3"/>
+			</div>
+			<div class="selectedArmy">
+				<img src="images/question.png" class="selectedArmyImg"/>
+				<br/>
+				<input type="text" name="selectedArmyDesc" id="selectedArmyDesc4" class="text ui-widget-content ui-corner-all" />
+				<input type="hidden" name="selectedArmy" id="selectedArmy4"/>
 			</div>
 		</div>
 	</textarea>

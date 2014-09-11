@@ -7,6 +7,7 @@ textarea.large { height: 470px; width: 100%; border: 1px solid gray; }
 button.wide { display: block; width: 500px; margin: 15px auto 30px auto; }
 button.right { width: 200px; margin: 20px 0px 0px 20px; }
 button.back { position: absolute; width: 100px; top: 10px; left: 10px;}
+button.save { position: absolute; width: 100px; top: 545px; left: 700px;}
 
 .header { text-align: center; font-weight: bold; font-size: 24pt; color: #235477; padding: 20px; }
 
@@ -131,9 +132,21 @@ body
 	margin: 10px;
 	border: 2px solid transparent;	
 }
-.editTeamDialog div img.selected
+.editTeamDialog div.selectedArmy
 {
-	border: 2px solid #357BAD;	
+	float: left;
+	margin: 10px;
+	text-align: center;
+	width: 126px;
+}
+.editTeamDialog div.selectedArmy img
+{
+	margin: 0px;
+}
+.editTeamDialog div.selectedArmy input
+{
+	margin: 0px;
+	width: 115px;
 }
 
 
@@ -329,11 +342,6 @@ body
 #viewScenarioTable .scenarioIcon { width: 32px; height: 32px; margin: 0px; }
 
 
-#editScenarioTable { width: 800px; margin: 0px auto 0px auto; }
-#editScenarioTable tbody tr td { border-bottom: 1px #CCC solid; text-align: center; font-size: 12pt; height: 64px; }
-
-#editScenarioTable thead tr td { border-bottom: 1px #CCC solid; text-align: center; font-size: 10pt; color: #CCC;}
-#editScenarioTable thead tr td.qualityHeader { width: 275px; }
-
-
-#editScenarioTable .scenarioIcon { width: 53px; height: 53px; margin: 3px 1px 0px 1px; border: none; }
+#editScenarioTable { margin: 0px auto 0px auto; }
+#editScenarioTable tbody tr td div { border: 2px solid transparent; font-size: 14pt; padding: 10px 0px; margin: 15px 20px; text-align: center; width: 250px; }
+#editScenarioTable tbody tr td div.selected { border: 2px solid #357BAD; }

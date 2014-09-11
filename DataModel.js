@@ -16,10 +16,10 @@ $(document).ready(function() {
 
 	if (!data)
 	{
-		var data = { Armies: [], Opponents: [] };
+		var data = { Armies: [], Opponents: [], Scenarios: [] };
 
-		data.GoodScenarios = CreateScenarios();		
-		data.BadScenarios = CreateScenarios();
+		//data.GoodScenarios = CreateScenarios();		
+		//data.BadScenarios = CreateScenarios();
 		
 		localStorage.setObject('Team', data);
 	}
@@ -35,10 +35,10 @@ function Opponant (name)
 }
 
 //Create a new Opposing Army
-function Army (name)
+function Army (name, description)
 {
 	this.Name = name;
-	this.Matchups = [];
+	this.Description = description;
 }
 
 //Create a new Matchup
@@ -84,6 +84,19 @@ function Scenario (name)
 //	Team
 //		Name
 //		Armies[]
+//		Scenarios[]
+//		Opponents[]
+//			Name
+//			LeadoutArmy
+//			Armies[]
+//				Name
+//				Description
+//				Matchups[]
+//					Quality
+//					ScenarioQuality
+//					Scenarios[]
+
+
 //		GoodScenarios[]
 //			Scenario
 //				Name
@@ -92,13 +105,4 @@ function Scenario (name)
 //			Scenario
 //				Name
 //				Armies[]
-//		Opponents[]
-//			Name
-//			LeadoutArmy
-//			Armies[]
-//				Name
-//				Matchups[]
-//					Quality
-//					ScenarioQuality
-//					Scenarios[]
 
