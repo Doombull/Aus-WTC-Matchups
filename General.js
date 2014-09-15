@@ -7,7 +7,6 @@ $(document).ready(function() {
 	$("button").button();
 	
 	RefreshPage();
-	//RefreshScenarioGrid(true, null);
 	//ToggleScenarioChoice(true);
 });
 
@@ -333,9 +332,6 @@ function ImportData(structureOnly) {
 
 			});	
 		});
-		
-		data.GoodScenarios = CreateScenarios();		
-		data.BadScenarios = CreateScenarios();		
 	}
 
 	localStorage.setObject('Team', data);
@@ -377,20 +373,24 @@ function EditMatchup(opposingArmy, ourArmy)
 	$dialogContents.find("img#ourArmy").attr("src", "images/" + data.Armies[ourArmy] + ".png"); 
 	$dialogContents.find("img#theirArmy").attr("src", "images/" + data.Opponents[_OpposingTeamId].Armies[opposingArmy].Name + ".png"); 
 	
+	$.each(data.Scenarios, function(key, value) { 
+		$dialogContents.find("#scenarios .scenario:eq(" + key + ")").text(value);
+	});	
+	
 	//Add the event handlers for the clickable elements
-	$dialogContents.find("table#quality div").click(function (event) {
+	$dialogContents.find("#quality div").click(function (event) {
 			
 			$dialogContents.find("table#quality td").removeClass("selected");
 			$(this).parent().addClass("selected");
 		});	
 		
-	$dialogContents.find("table#scenarioQuality div").click(function (event) {
+	$dialogContents.find("#scenarioQuality div").click(function (event) {
 			
-			$dialogContents.find("table#scenarioQuality td").removeClass("selected");
+			$dialogContents.find("#scenarioQuality td").removeClass("selected");
 			$(this).parent().addClass("selected");
 		});	
 		
-	$dialogContents.find("table#scenarios td").click(function (event) {
+	$dialogContents.find("#scenarios .scenario").click(function (event) {
 			$(this).toggleClass("selected");
 		});	
 	
@@ -398,11 +398,11 @@ function EditMatchup(opposingArmy, ourArmy)
 	//Set the controls for the existing values
 	if (data.Opponents[_OpposingTeamId].Armies[opposingArmy].Matchups && data.Opponents[_OpposingTeamId].Armies[opposingArmy].Matchups[ourArmy])
 	{
-		$dialogContents.find("table#quality div." + data.Opponents[_OpposingTeamId].Armies[opposingArmy].Matchups[ourArmy].Quality).parent().addClass("selected");
-		$dialogContents.find("table#scenarioQuality div." + data.Opponents[_OpposingTeamId].Armies[opposingArmy].Matchups[ourArmy].ScenarioQuality).parent().addClass("selected");
+		$dialogContents.find("#quality div." + data.Opponents[_OpposingTeamId].Armies[opposingArmy].Matchups[ourArmy].Quality).parent().addClass("selected");
+		$dialogContents.find("#scenarioQuality div." + data.Opponents[_OpposingTeamId].Armies[opposingArmy].Matchups[ourArmy].ScenarioQuality).parent().addClass("selected");
 		
 		$.each(data.Opponents[_OpposingTeamId].Armies[opposingArmy].Matchups[ourArmy].Scenarios, function(key, value) { 
-			$dialogContents.find("table#scenarios td#" + value).addClass("selected");
+			$dialogContents.find("#scenarios .scenario:contains('" + value + "')").addClass("selected");
 		});			
 	}
 	
@@ -412,7 +412,7 @@ function EditMatchup(opposingArmy, ourArmy)
 		draggable: false,
 		resizable: false,
 		modal: true,
-		height: 680,
+		height: 630,
 		width: 785,
 		buttons: {
 			"Save Matchup": function() {
@@ -432,7 +432,13 @@ function EditMatchup(opposingArmy, ourArmy)
 				if (!bHasScenarioQuality && bHasScenarios)
 				{
 					bValid = false;
-					$(this).find("#scenarioQualityText").addClass("ui-state-error").text("Please select a quality for when the opponant picks scenario");					
+					$(this).find("#scenarioQualityText").addClass("ui-state-error").text("Please select a quality for the selected scenarios");					
+				}				
+				
+				if (bHasScenarioQuality && !bHasScenarios)
+				{
+					bValid = false;
+					$(this).find("#scenarioQualityText").addClass("ui-state-error").text("Please select at least one scenario if you select a custom scenario quality");					
 				}
 				
 				//Save this matchup
@@ -445,7 +451,7 @@ function EditMatchup(opposingArmy, ourArmy)
 						matchup.ScenarioQuality = $(this).find("#scenarioQuality td.selected div").attr("class");
 						
 						$.each($(this).find("#scenarios td.selected"), function(key, value) { 
-							matchup.Scenarios[key] = value.id;
+							matchup.Scenarios[key] = value.innerHTML;
 						});							
 					}					
 					
@@ -552,74 +558,6 @@ function SaveScenarios() {
 
 
 
-function EditScenario(index) {
-	
-	//Load in the saved data
-	var data = localStorage.getObject("Team");
-	
-	//Get the initial structure of the dialog
-	var $dialogContents = $($("#editScenarioDialogContainer").val());
-	
-	$.each(data.Armies, function(key, army) { 
-		var image = "<img src='images/" + army + ".png' class='" + army + "'/>";
-		$dialogContents.find(".armyRow").append(image);
-	});
-	
-	$.each(data.GoodScenarios[index].Armies, function(key, army) { 
-		$dialogContents.find(".armyRow:eq(0) img." + data.Armies[army]).addClass("selected");
-	});	
-	
-	$.each(data.BadScenarios[index].Armies, function(key, army) { 
-		$dialogContents.find(".armyRow:eq(1) img." + data.Armies[army]).addClass("selected");
-	});	
-	
-	$dialogContents.find("img").click(function (event) {
-			$(this).toggleClass("selected");
-		});	
-
-	
-	//Create and open the dialog
-	$dialogContents.dialog({
-		draggable: false,
-		resizable: false,
-		modal: true,
-		height: 500,
-		width: 760,
-		buttons: {
-			"Save scenario": function() {
-				
-				data.GoodScenarios[index].Armies = [];
-				
-				$dialogContents.find(".armyRow:eq(0) img.selected").each(function(selectedIndex) {
-				    data.GoodScenarios[index].Armies.push($(this).prevAll().length);
-				});	
-				
-				data.BadScenarios[index].Armies = [];
-				
-				$dialogContents.find(".armyRow:eq(1) img.selected").each(function(selectedIndex) {
-				    data.BadScenarios[index].Armies.push($(this).prevAll().length);
-				});	
-				
-				//save it to local storage and close the dialog
-				localStorage.setObject('Team', data);
-				
-				RefreshScenarioGrid(true, null);
-				$(this).dialog( "close" );
-			},
-			Cancel: function() {
-				$(this).dialog( "close" );
-			}
-		},
-		close: function() {
-			$(this).dialog("destroy");
-		}
-	});	
-}
-
-
-
-
-
 <!-- ******************************** -->
 <!--    View Matchups                 -->
 <!-- ******************************** -->
@@ -643,7 +581,7 @@ function ViewMatchups(index)
 	$("#viewMatchupsViewPanel .header").text(data.Opponents[index].Name);
 	
 	DrawMatchupGrid(false, index);
-	RefreshScenarioGrid(false, index)
+	RefreshScenarioGrid()
 }
 
 

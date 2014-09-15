@@ -19,7 +19,17 @@ function DrawMatchupGrid(isEditGrid, opposingTeamId)
 	//Add the opposing armies and matchups
 	$.each(data.Opponents[opposingTeamId].Armies, function(key, value) { 
 	
-		$(gridId + " #OpposingPlayer" + key).html("<img src='images/" + value.Name + ".png' class='matchupIcon'/>");
+		$(gridId + " #OpposingPlayer" + key + " .matchupIcon").attr("src", "images/" + value.Name + ".png");
+		
+		var $armyDescription = $(gridId + " #OpposingPlayer" + key + " .armyDescription");
+		$armyDescription.html(value.Description);
+		
+		if (value.Description && value.Description != "")
+		{		
+			var offset = ($armyDescription.parent().width() - $armyDescription.width()) / 2;			
+			$armyDescription.css({left: offset});
+		}
+				
 		RefreshMatchupGridColumn(isEditGrid, key, value);
 	});
 }
@@ -113,18 +123,14 @@ function ToggleMatchupVisibility(isColumn, index)
 
 
 
-//This refreshes all matchups in the grid to take into account changes input by the user
-function RefreshScenarioGrid(isEditGrid, opposingTeamId)
+//This draws out the 6 selected scenarios
+function RefreshScenarioGrid()
 {
 	var data = localStorage.getObject ("Team");
 
-	var gridId = "#viewScenarioTable";
-	if (isEditGrid)
-		gridId = "#editScenarioTable";
-		
 	//clear the old entries
-	$(gridId + " tbody tr td:first-child").html("");
-	$(gridId + " tbody tr td:last-child").html("");
+	$("#viewScenarioTable tbody tr td:first-child").html("");
+	$("#viewScenarioTable tbody tr td:last-child").html("");
 	
 	//Show all the good scenarios
 	$.each(data.GoodScenarios, function(key, scenario) { 

@@ -11,6 +11,8 @@ button.save { position: absolute; width: 100px; top: 545px; left: 700px;}
 
 .header { text-align: center; font-weight: bold; font-size: 24pt; color: #235477; padding: 20px; }
 
+.armyDescription { position: absolute; font-size: 8pt; color: #888888; width: 165px; margin: 0px; }
+
 
 body
 {
@@ -176,6 +178,15 @@ body
 {
 	float: right;
 }
+.editMatchupDialog .vs .armyDescription
+{
+	left: 415px;
+	top: 0px;
+	text-align: left;
+	height: 75px;
+	vertical-align: middle;
+	
+}
 .editMatchupDialog div.label
 {
 	text-align: center;
@@ -234,28 +245,6 @@ body
 }
 
 
-.editScenarioDialog
-{
-	margin: 10px;
-}
-.editScenarioDialog div
-{
-	text-align: center;
-}
-.editScenarioDialog div img
-{
-	height: 90px;
-	width: 90px;
-	margin: 10px;
-	border: 2px solid transparent;	
-}
-.editScenarioDialog div img.selected
-{
-	border: 2px solid #357BAD;	
-}
-
-
-
 
 #scenarioChoiceText 
 { 
@@ -289,7 +278,7 @@ body
 
 #editMatchupsTable { margin: 15px auto 30px auto; height: 480px; width: 600px; }
 
-#editMatchupsTable .armyCell { border: none; background-color: white; width: 100px; height: 80px; text-align: center; float: left;}
+#editMatchupsTable .armyCell { position: relative; border: none; background-color: white; width: 100px; height: 80px; text-align: center; float: left;}
 #editMatchupsTable .matchupIcon { border: 1px solid transparent; width: 75px; height: 75px; }
 
 #editMatchupsTable .matchup { width: 90px; height:70px; margin: 4px;  border: 1px solid gray; background-color: white; float: left;}
@@ -297,6 +286,8 @@ body
 #editMatchupsTable .subMatchupContainer { width: 92px; height:72px; margin: 4px;  border: 0px; background-color: white; float: left; position: relative; }
 #editMatchupsTable .subMatchup { width: 75px; height: 60px; position: absolute; left: 0px; top: 0px; z-index: 10 }
 #editMatchupsTable .scenarioSubMatchup { width: 75px; height: 60px; position: absolute; left: 15px; top: 10px; }
+
+#editMatchupsTable .armyDescription { top: -20px; text-align: center; }
 
 
 
@@ -314,8 +305,10 @@ body
 #viewMatchupsTable.recieving div div div.scenarioSubMatchup  { z-index: 20; }
 
 
-.good { border: 1px solid ForestGreen !important; background-color: LimeGreen !important; }
+.excellent { border: 1px solid #006600 !important; background-color: #009900 !important; }
+.good { border: 1px solid #669900 !important; background-color: #66CC33 !important; }
 .average { border: 1px solid Goldenrod !important; background-color: Gold !important; }
+.poor { border: 1px solid #CC9900 !important; background-color: #FF7700 !important; }
 .bad { border: 1px solid DarkRed !important; background-color: Red !important; }
 
 .usedByUs { border: 1px solid #DDDDDD !important; background-color: #DDDDDD !important; }

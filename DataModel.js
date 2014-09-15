@@ -39,6 +39,7 @@ function Army (name, description)
 {
 	this.Name = name;
 	this.Description = description;
+	this.Matchups = [];	
 }
 
 //Create a new Matchup

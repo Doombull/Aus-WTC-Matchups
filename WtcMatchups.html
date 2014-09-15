@@ -124,15 +124,30 @@
 				<button onclick="EditMatchupsBack()" class="back"><< Back</button>
 				<div class="header"></div>
 
-
+				<br/>
 				<div id="editMatchupsTable" class="matchupTable">
 					<div class="matchupTableRow">
 						<div class="armyCell"></div>
-						<div id="OpposingPlayer0" class="armyCell">&nbsp;</div>
-						<div id="OpposingPlayer1" class="armyCell">&nbsp;</div>
-						<div id="OpposingPlayer2" class="armyCell">&nbsp;</div>
-						<div id="OpposingPlayer3" class="armyCell">&nbsp;</div>
-						<div id="OpposingPlayer4" class="armyCell">&nbsp;</div>
+						<div id="OpposingPlayer0" class="armyCell">
+							<label class="armyDescription"></label>
+							<img class="matchupIcon"/>
+						</div>
+						<div id="OpposingPlayer1" class="armyCell">
+							<label class="armyDescription"></label>
+							<img class="matchupIcon"/>
+						</div>
+						<div id="OpposingPlayer2" class="armyCell">
+							<label class="armyDescription"></label>
+							<img class="matchupIcon"/>
+						</div>
+						<div id="OpposingPlayer3" class="armyCell">
+							<label class="armyDescription"></label>
+							<img class="matchupIcon"/>
+						</div>
+						<div id="OpposingPlayer4" class="armyCell">
+							<label class="armyDescription"></label>
+							<img class="matchupIcon"/>
+						</div>
 					</div>
 					<div class="matchupTableRow">
 						<div id="Player0" class="armyCell" onclick="SelectLeadoutArmy(0)"></div>
@@ -257,26 +272,30 @@
 				</div>
 
 				<div class="leftPanel">
-					<table id="scenarioChoiceText">
-					<tr>
-						<td>
-							<img src="images/flagGreen.jpg" style="float: left;" onclick="ToggleScenarioChoice(true)"/>
-						</td>
-						<td />
-						<td>
-							<img src="images/flagRed.jpg" style="float: right;" onclick="ToggleScenarioChoice(false)"/>
-						</td>
-					</tr>
-					</table>
 
 					<div id="viewMatchupsTable" class="matchupTable">
 						<div class="matchupTableRow">
 							<div class="armyCell"></div>
-							<div id="OpposingPlayer0" class="armyCell" onclick="ToggleMatchupVisibility(true, 0)">&nbsp;</div>
-							<div id="OpposingPlayer1" class="armyCell" onclick="ToggleMatchupVisibility(true, 1)">&nbsp;</div>
-							<div id="OpposingPlayer2" class="armyCell" onclick="ToggleMatchupVisibility(true, 2)">&nbsp;</div>
-							<div id="OpposingPlayer3" class="armyCell" onclick="ToggleMatchupVisibility(true, 3)">&nbsp;</div>
-							<div id="OpposingPlayer4" class="armyCell" onclick="ToggleMatchupVisibility(true, 4)">&nbsp;</div>
+							<div id="OpposingPlayer0" class="armyCell" onclick="ToggleMatchupVisibility(true, 0)">
+								<label class="armyDescription"></label>
+								<img class="matchupIcon"/>
+							</div>
+							<div id="OpposingPlayer1" class="armyCell" onclick="ToggleMatchupVisibility(true, 1)">
+								<label class="armyDescription"></label>
+								<img class="matchupIcon"/>
+							</div>
+							<div id="OpposingPlayer2" class="armyCell" onclick="ToggleMatchupVisibility(true, 2)">
+								<label class="armyDescription"></label>
+								<img class="matchupIcon"/>
+							</div>
+							<div id="OpposingPlayer3" class="armyCell" onclick="ToggleMatchupVisibility(true, 3)">
+								<label class="armyDescription"></label>
+								<img class="matchupIcon"/>
+							</div>
+							<div id="OpposingPlayer4" class="armyCell" onclick="ToggleMatchupVisibility(true, 4)">
+								<label class="armyDescription"></label>
+								<img class="matchupIcon"/>
+							</div>
 						</div>
 						<div class="matchupTableRow">
 							<div id="Player0" class="armyCell" onclick="ToggleMatchupVisibility(false, 0)"></div>
@@ -393,6 +412,7 @@
 				<img id="ourArmy"/>
 				VS
 				<img id="theirArmy"/>
+				<div class="armyDescription">Test description</div>
 			</div>
 
 			<div id="qualityText" class="label">Select the quality of this matchup</div>
@@ -401,11 +421,19 @@
 				<tbody>
 					<tr>
 						<td>
+							<div class="excellent">&nbsp;</div>
+						</td>
+						<td class="spacer"/>
+						<td>
 							<div class="good">&nbsp;</div>
 						</td>
 						<td class="spacer"/>
 						<td>
 							<div class="average">&nbsp;</div>
+						</td>
+						<td class="spacer"/>
+						<td>
+							<div class="poor">&nbsp;</div>
 						</td>
 						<td class="spacer"/>
 						<td>
@@ -415,20 +443,30 @@
 				</tbody>
 			</table>
 
+			<br/>
 			<hr/>
 			<br/>
+			<br/>
 
-			<div id="scenarioQualityText" class="label">If the opposition picks the matchup, the quality is:</div>
+			<div id="scenarioQualityText" class="label">In these particular scenarios, the quality is:</div>
 
 			<table id="scenarioQuality" class="quality">
 				<tbody>
 					<tr>
 						<td>
+							<div class="excellent">&nbsp;</div>
+						</td>
+						<td class="spacer"/>
+						<td>
 							<div class="good">&nbsp;</div>
 						</td>
 						<td class="spacer"/>
 						<td>
 							<div class="average">&nbsp;</div>
+						</td>
+						<td class="spacer"/>
+						<td>
+							<div class="poor">&nbsp;</div>
 						</td>
 						<td class="spacer"/>
 						<td>
@@ -438,72 +476,28 @@
 				</tbody>
 			</table>
 
-			<div id="scenarioText" class="label">if any of the following scenarios are still available</div>
-
+			<br/>
 			<table id="scenarios" class="scenarios">
 				<tbody>
 					<tr>
-						<td id="CloseQuarters" class="scenario">
-							Close Quarters
-						</td>
+						<td class="scenario" />
 						<td class="spacer"/>
-						<td id="Gauntlet" class="scenario">
-							Gauntlet
-						</td>
+						<td class="scenario" />
 						<td class="spacer"/>
-						<td id="Guidons" class="scenario">
-							Guidons
-						</td>
+						<td class="scenario" />
 					</tr>
 					<tr>
 						<td colspan="5" class="verticalSpacer"/>
 					</tr>
 					<tr>
-						<td id="Destruction" class="scenario">
-							Destruction
-						</td>
+						<td class="scenario" />
 						<td class="spacer"/>
-						<td id="Incursion" class="scenario">
-							Incursion
-						</td>
+						<td class="scenario" />
 						<td class="spacer"/>
-						<td id="ProcessOfElimination" class="scenario">
-							Process of Elimination
-						</td>
-					</tr>
-					<tr>
-						<td colspan="5" class="verticalSpacer"/>
-					</tr>
-					<tr>
-						<td id="Demolition" class="scenario">
-							Demolition
-						</td>
-						<td class="spacer"/>
-						<td id="Incoming" class="scenario">
-							Incoming
-						</td>
-						<td class="spacer"/>
-						<td id="CommandAndControl" class="scenario">
-							Command and Control
-						</td>
+						<td class="scenario" />
 					</tr>
 				</tbody>
 			</table>
-		</div>
-	</textarea>
-
-	<textarea id="editScenarioDialogContainer" style="display: none">
-		<div class="editScenarioDialog" title="Edit Scenario">
-			<div class="header">Incursion</div>
-
-			<label>Armies that this scenario is good for:</label>
-			<div class="armyRow">
-			</div>
-
-			<br/>
-			<label>Armies that this scenario is bad for:</label>
-			<div class="armyRow">
-			</div>
 		</div>
 	</textarea>
 
