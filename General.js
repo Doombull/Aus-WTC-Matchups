@@ -7,7 +7,6 @@ $(document).ready(function() {
 	$("button").button();
 	
 	RefreshPage();
-	//ToggleScenarioChoice(true);
 });
 
 function RefreshPage()
@@ -565,9 +564,6 @@ function ViewMatchupsBack()
 {
 	$("#viewMatchupsViewPanel").hide();
 	$("#viewMatchupsSelectPanel").show();
-	
-	ToggleScenarioChoice(true);
-	$("#viewScenarioTable tbody tr td").removeClass("inactive");
 }
 
 function ViewMatchups(index)
@@ -581,29 +577,18 @@ function ViewMatchups(index)
 	$("#viewMatchupsViewPanel .header").text(data.Opponents[index].Name);
 	
 	DrawMatchupGrid(false, index);
-	RefreshScenarioGrid()
+	DrawScenarioGrid()
 }
 
 
 <!-- ******************************** -->
 <!--      View  Scenario Controls     -->
 <!-- ******************************** -->
-function ToggleScenarioChoice(isOurChoice)
-{
-	if (isOurChoice)
-	{
-		$("#scenarioChoiceText tr td:eq(1)").text("We are choosing scenario").removeClass().addClass("ourScenarioChoice");
-		$("#viewMatchupsTable").removeClass("recieving");
-	}
-	else
-	{
-		$("#scenarioChoiceText tr td:eq(1)").text("They are choosing scenario").removeClass().addClass("theirScenarioChoice");
-		$("#viewMatchupsTable").addClass("recieving");
-	}
-}
 
-function ToggleScenarioChosen(index)
+function ToggleScenarioChoice(index)
 {
-	$("#viewScenarioTable tbody tr:eq(" + index + ") td").toggleClass("inactive");
+	$("#viewScenarioTable .selected").removeClass("selected");
+	$("#viewScenarioTable .scenario:eq(" + index + ")").addClass("selected");
+	
 	RefreshMatchupGrid(false, _OpposingTeamId);
 }

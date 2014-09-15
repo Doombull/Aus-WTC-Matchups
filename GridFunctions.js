@@ -175,6 +175,20 @@ function RefreshScenarioGrid()
 }
 
 
+//This draws out the 6 selected scenarios
+function DrawScenarioGrid()
+{
+	var data = localStorage.getObject ("Team");
+	
+	//Show all the good scenarios
+	$.each(data.Scenarios, function(key, value) { 
+	
+		$("#viewScenarioTable .scenario:eq(" + key + ")").text(value);
+	});
+}
+
+
+
 function DrawScenarioIcon(gridId, scenario, army, isGood)
 {
 	var cellPos = 2;
