@@ -60,37 +60,32 @@ function RefreshMatchupGridColumn(isEditGrid, index, opposingArmy)
 			$(gridId + " #Matchup" + index + i).removeClass().addClass("matchup").html("");	
 		else
 		{
-			var hasScenarioMatchup = false;
-			
 			//Check if there are scenario specific matchups
+			var hasScenarioMatchup = false;			
+			
 			if (opposingArmy.Matchups[i].Scenarios && opposingArmy.Matchups[i].Scenarios.length > 0)
-			{
-				//If so, see if at least one of those scenarios are still active
-				if (isEditGrid)
-					hasScenarioMatchup = true;
-				else
-				{
-					var j;
-					for (j = 0; j < opposingArmy.Matchups[i].Scenarios.length; ++j)
-					{
-						if (!($("#viewScenarioTable tbody tr td#" + opposingArmy.Matchups[i].Scenarios[j]).hasClass("inactive")))
-						{
-							hasScenarioMatchup = true;
-							break;
-						}
-					}
-				}				
-			}
+				hasScenarioMatchup = true;
+
 		
-			//Draw the matchup
-			if (hasScenarioMatchup)
+			//Draw sub matchups on the edit grid if appropriate
+			if (isEditGrid && hasScenarioMatchup)
 			{
 				var contents = "<div class='" + opposingArmy.Matchups[i].Quality + " subMatchup'>&nbsp;</div>";
 				contents += "<div class='" + opposingArmy.Matchups[i].ScenarioQuality + " scenarioSubMatchup'>&nbsp;</div>";
 						
 				$(gridId + " #Matchup" + index + i).removeClass().addClass("subMatchupContainer").html(contents);
 			}
-			else
+			
+			//Draw a scenario specific matchup on the view grid if that scenario is selected
+			else if (!isEditGrid && 
+					hasScenarioMatchup &&
+					$("#viewScenarioTable .selected").length == 1 &&
+					$.inArray($("#viewScenarioTable .selected").text(), opposingArmy.Matchups[i].Scenarios) > -1)
+				
+				$(gridId + " #Matchup" + index + i).removeClass().addClass("matchup " + opposingArmy.Matchups[i].ScenarioQuality).html("");		
+			
+			//Otherwise just draw a regular matchup
+			else			
 				$(gridId + " #Matchup" + index + i).removeClass().addClass("matchup " + opposingArmy.Matchups[i].Quality).html("");
 		}
 	}
@@ -119,62 +114,6 @@ function ToggleMatchupVisibility(isColumn, index)
 }
 
 
-
-
-
-
-//This draws out the 6 selected scenarios
-function RefreshScenarioGrid()
-{
-	var data = localStorage.getObject ("Team");
-
-	//clear the old entries
-	$("#viewScenarioTable tbody tr td:first-child").html("");
-	$("#viewScenarioTable tbody tr td:last-child").html("");
-	
-	//Show all the good scenarios
-	$.each(data.GoodScenarios, function(key, scenario) { 
-
-		$.each(scenario.Armies, function(key, army) { 
-
-			DrawScenarioIcon(gridId, scenario.Name, data.Armies[army], true);
-		});
-	});
-	
-	//Show all the bad scenarios
-	$.each(data.BadScenarios, function(key, scenario) { 
-
-		$.each(scenario.Armies, function(key, army) { 
-
-			DrawScenarioIcon(gridId, scenario.Name, data.Armies[army], false);
-		});
-	});
-	
-	//Show the ones specific to this opponent
-	if (!isEditGrid)
-	{
-		//Fill in the good and bad scenarios
-		$.each(data.Opponents[opposingTeamId].Armies, function(armyIndex, army) { 
-
-			if (army)
-			{
-				$.each(army.Matchups, function(matchupIndex, matchup) { 
-
-					if (matchup)
-					{
-						$.each(matchup.Scenarios, function(scenarioIndex, scenario) { 
-							
-							DrawScenarioIcon(gridId, scenario, data.Armies[matchupIndex], false);
-						
-						});	
-					}
-				});	
-			}
-		});	
-	}
-}
-
-
 //This draws out the 6 selected scenarios
 function DrawScenarioGrid()
 {
@@ -183,20 +122,12 @@ function DrawScenarioGrid()
 	//Show all the good scenarios
 	$.each(data.Scenarios, function(key, value) { 
 	
-		$("#viewScenarioTable .scenario:eq(" + key + ")").text(value);
+		$("#viewScenarioTable .scenario:eq(" + key + ")").removeClass("selected").text(value);
 	});
 }
 
-
-
-function DrawScenarioIcon(gridId, scenario, army, isGood)
+//This removes the currently selected scenario
+function ClearScenarioGrid()
 {
-	var cellPos = 2;
-	if (isGood)
-		cellPos = 0;
-
-	var $matchupCell = $(gridId + " tbody tr:has(td#" + scenario + ") td:eq(" + cellPos + ")");
-
-	if ($matchupCell.find("img." + army).length == 0)						
-		$matchupCell.append("<img src='images/" + army + ".png' class='scenarioIcon " + army + "'/>");	
+	$("#viewScenarioTable .selected").removeClass("selected");
 }

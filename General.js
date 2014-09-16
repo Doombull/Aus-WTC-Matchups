@@ -11,7 +11,8 @@ $(document).ready(function() {
 
 function RefreshPage()
 {
-	PopulateOpponantList();	
+	PopulateOpponantList();
+	DrawScenarioGrid();
 	ExportData();
 }
 
@@ -371,6 +372,7 @@ function EditMatchup(opposingArmy, ourArmy)
 	
 	$dialogContents.find("img#ourArmy").attr("src", "images/" + data.Armies[ourArmy] + ".png"); 
 	$dialogContents.find("img#theirArmy").attr("src", "images/" + data.Opponents[_OpposingTeamId].Armies[opposingArmy].Name + ".png"); 
+	$dialogContents.find(".armyDescription").html(data.Opponents[_OpposingTeamId].Armies[opposingArmy].Description); 
 	
 	$.each(data.Scenarios, function(key, value) { 
 		$dialogContents.find("#scenarios .scenario:eq(" + key + ")").text(value);
@@ -548,6 +550,7 @@ function SaveScenarios() {
 	});		
 	
 	localStorage.setObject('Team', data);
+	DrawScenarioGrid();
 	
 	//Alert the user
 	alert("Scenarios saved sucessfully");
@@ -577,7 +580,7 @@ function ViewMatchups(index)
 	$("#viewMatchupsViewPanel .header").text(data.Opponents[index].Name);
 	
 	DrawMatchupGrid(false, index);
-	DrawScenarioGrid()
+	ClearScenarioGrid();
 }
 
 

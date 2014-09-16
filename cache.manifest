@@ -1,5 +1,5 @@
 CACHE MANIFEST
-# 2014-09-08 v1.0
+# 2014-09-16 v2.0
 
 DataModel.js
 General.js
@@ -23,15 +23,15 @@ css/redmond/images/ui-icons_cd0a0a_256x240.png
 css/redmond/images/ui-icons_d8e7f3_256x240.png
 css/redmond/images/ui-icons_f9bd01_256x240.png
 images/circle.png
+images/convergence.png
 images/cryx.png
 images/cygnar.png
-images/flagGreen.jpg
-images/flagRed.jpg
 images/khador.png
 images/legion.png
 images/menoth.png
 images/mercenaries.png
 images/minions.png
+images/question.png
 images/retribution.png
 images/skorne.png
 images/Tab1.png

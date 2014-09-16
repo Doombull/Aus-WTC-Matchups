@@ -17,10 +17,6 @@ $(document).ready(function() {
 	if (!data)
 	{
 		var data = { Armies: [], Opponents: [], Scenarios: [] };
-
-		//data.GoodScenarios = CreateScenarios();		
-		//data.BadScenarios = CreateScenarios();
-		
 		localStorage.setObject('Team', data);
 	}
 });
@@ -48,23 +44,6 @@ function Matchup (quality)
 	this.Quality = quality;
 	this.ScenarioQuality = null;
 	this.Scenarios = [];
-}
-
-//Create a new Scenario list
-function CreateScenarios ()
-{
-	scenarios = [];
-	scenarios.push(new Scenario("CloseQuarters"));
-	scenarios.push(new Scenario("Gauntlet"));
-	scenarios.push(new Scenario("Guidons"));
-	scenarios.push(new Scenario("Destruction"));
-	scenarios.push(new Scenario("Incursion"));
-	scenarios.push(new Scenario("ProcessOfElimination"));
-	scenarios.push(new Scenario("Demolition"));
-	scenarios.push(new Scenario("Incoming"));
-	scenarios.push(new Scenario("CommandAndControl"));
-	
-	return scenarios;
 }
 
 //Create a new Scenario
@@ -96,14 +75,4 @@ function Scenario (name)
 //					Quality
 //					ScenarioQuality
 //					Scenarios[]
-
-
-//		GoodScenarios[]
-//			Scenario
-//				Name
-//				Armies[]
-//		BadScenarios[]
-//			Scenario
-//				Name
-//				Armies[]
 
